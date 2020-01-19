@@ -1,42 +1,7 @@
 #include <stdio.h>
-//	C:\Users\takee\Desktop\hello\test.txt
+//	C:\Users\takee\Desktop\test.txt
 
-int goDown (char gameBoard[4][4], int y, int x) {
-	if (y == 3)
-		return 0;
-	gameBoard[y][x] = '1';
-	gameBoard[y+1][x] = '0';
-	show(gameBoard);
-	return 1;
-}
-
-int goUp (char gameBoard[4][4], int y, int x) {
-	if (y == 0)
-		return 0;
-	gameBoard[y][x] = '1';
-	gameBoard[y-1][x] = '0';
-	show(gameBoard);
-	return 1;
-}
-
-int goRight (char gameBoard[4][4], int y, int x) {
-	if (x == 3)
-		return 0;
-	gameBoard[y][x] = '1';
-	gameBoard[y][x+1] = '0';
-	show(gameBoard);
-	return 1;
-}
-
-int goLeft (char gameBoard[4][4], int y, int x) {
-	if (x == 0)
-		return 0;
-	gameBoard[y][x] = '1';
-	gameBoard[y][x-1] = '0';
-	show(gameBoard);
-	return 1;
-}
-
+// function for representing pacman's movement in game board
 void show (char B[][4]) {
 	int i, j;
 	for (i = 0; i <400000000; i++) ;
@@ -45,6 +10,40 @@ void show (char B[][4]) {
 		for (j = 0; j < 4; j++)
 			printf("%c ", B[i][j]);
 		printf("\n");
+	}
+}
+
+// function for directing pacman
+int go (char gameBoard[4][4], int y, int x, char dir) {
+	switch (dir) {
+		case 'd':
+			if (y == 3)
+				return 0;
+			gameBoard[y][x] = '1';
+			gameBoard[y+1][x] = '0';
+			show(gameBoard);
+			return 1;
+		case 'u':
+			if (y == 0)
+				return 0;
+			gameBoard[y][x] = '1';
+			gameBoard[y-1][x] = '0';
+			show(gameBoard);
+			return 1;
+		case 'r':
+			if (x == 3)
+				return 0;
+			gameBoard[y][x] = '1';
+			gameBoard[y][x+1] = '0';
+			show(gameBoard);
+			return 1;
+		case 'l':
+			if (x == 0)
+				return 0;
+			gameBoard[y][x] = '1';
+			gameBoard[y][x-1] = '0';
+			show(gameBoard);
+			return 1;
 	}
 }
 
@@ -65,55 +64,27 @@ int main(){
 			}
 	show(gameBoard);
 
-/*	int xPac = 0, yPac = 0, x, y, flag = 0;
-	for (y = 0; y < 4 && flag == 0; y++)
-		for (x = 0; x < 4 && flag == 0; x++)
-			if (gameBoard[y][x] == '*')
-				flag = 1;
-	y--;
-	x--;
-	
-	while (y != yPac) {
-		if (y > yPac) {
-			goDown(gameBoard, yPac, xPac);
-			yPac++;
-		}
-		if (y < yPac){
-			goUp(gameBoard, yPac, xPac);
-			yPac--;
-		}
-	}
-	while (x != xPac) {
-		if (x > xPac) {
-			goRight(gameBoard, yPac, xPac);
-			xPac++;
-		}
-		if (x < xPac){
-			goLeft(gameBoard, yPac, xPac);
-			xPac--;
-		}
-	}*/
 	int xPac = 0, yPac = 0, x, y, flag = 0;
 	for (y = 0; y < 4 && flag == 0; y++)
 		for (x = 0; x < 4 && flag == 0; x++)
 			if (gameBoard[y][x] == '*') {
 				while (y != yPac) {
 					if (y > yPac) {
-						goDown(gameBoard, yPac, xPac);
+						go(gameBoard, yPac, xPac, 'd');
 						yPac++;
 					}
 					if (y < yPac){
-						goUp(gameBoard, yPac, xPac);
+						go(gameBoard, yPac, xPac, 'u');
 						yPac--;
 					}
 				}
 				while (x != xPac) {
 					if (x > xPac) {
-						goRight(gameBoard, yPac, xPac);
+						go(gameBoard, yPac, xPac, 'r');
 						xPac++;
 					}
 					if (x < xPac){
-						goLeft(gameBoard, yPac, xPac);
+						go(gameBoard, yPac, xPac, 'l');
 						xPac--;
 					}
 				}
