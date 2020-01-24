@@ -48,11 +48,16 @@ int go (char gameBoard[4][4], int y, int x, char dir) {
 }
 
 int main(){
-	printf("Enter the file's adress: ");
+	printf("Enter the file's adress:\n");
 	char adr[100];
 	scanf("%s", adr);
 	FILE *ptf;
 	ptf = fopen(adr, "r");
+	while (ptf == NULL) {
+		printf("There's no file with this adress. Please enter another adress:\n");
+		scanf("%s", adr);
+		ptf = fopen(adr, "r");
+	}
 	char ch, gameBoard[4][4] = {0};
 	int i, j;
 	for (i = 0; i < 4; i++)
@@ -64,10 +69,12 @@ int main(){
 			}
 	show(gameBoard);
 
-	int xPac = 0, yPac = 0, x, y, flag = 0;
-	for (y = 0; y < 4 && flag == 0; y++)
-		for (x = 0; x < 4 && flag == 0; x++)
+	int xPac = 0, yPac = 0, x, y;
+	//finding foods
+	for (y = 0; y < 4; y++)
+		for (x = 0; x < 4; x++)
 			if (gameBoard[y][x] == '*') {
+				// going to food position
 				while (y != yPac) {
 					if (y > yPac) {
 						go(gameBoard, yPac, xPac, 'd');
