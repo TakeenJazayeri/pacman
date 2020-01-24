@@ -6,7 +6,7 @@
 void show (char B[][10]) {
 	int i, j;
 	system("cls");
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < 5; i++) {
 		for (j = 0; j < 10; j++)
 			printf("%c ", B[i][j]);
 		printf("\n");
@@ -17,7 +17,7 @@ void show (char B[][10]) {
 int go (char gameBoard[][10], int y, int x, char dir) {
 	switch (dir) {
 		case 'd':
-			if (y == 3 || gameBoard[y+1][x] == '#')
+			if (y == 4 || gameBoard[y+1][x] == '#')
 				return 0;
 			gameBoard[y][x] = '1';
 			gameBoard[y+1][x] = '0';
@@ -50,7 +50,7 @@ int go (char gameBoard[][10], int y, int x, char dir) {
 // Function for counting the number of remaining foods
 int foodNum(char gameBoard[][10]) {
 	int i, j, result = 0;
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < 5; i++)
 		for (j = 0; j < 10; j++)
 			if (gameBoard[i][j] == '*')
 				result++;
@@ -77,9 +77,9 @@ int main(){
 		scanf("%s", adr);
 		ptf = fopen(adr, "r");
 	}
-	char ch, gameBoard[4][10] = {0};
+	char ch, gameBoard[5][10] = {0};
 	int i, j;
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < 5; i++)
 		for (j = 0; j < 10; j++)
 			while (gameBoard[i][j] == 0) {
 				ch = fgetc(ptf);
